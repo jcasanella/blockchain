@@ -61,5 +61,24 @@ describe('Blockchain', () => {
 
         // Validate where will be the transaction stored
         expect(ret).toBe(2);
+    });
+
+    test('it should mine a block', async () => {
+        const blockchain = new Blockchain();
+
+        blockchain.createNewBlock(2389,'OINA90SDNF90N','90ANSD9F0N9009N');
+
+        blockchain.createNewTransaction({ amount: 500, sender: 'ALEXHT845SJ5TKCJ2',  recipient: 'JENN5BG5DF6HT8NG9'});
+        expect(blockchain.pendingTransactions).toHaveLength(1);
+
+        blockchain.createNewBlock(548764,'AKMC875E6S1RS9','WPLS214R7T6SJ3G2');
+
+        expect(blockchain.chain).toHaveLength(2);
+        expect(blockchain.chain[0].transactions).toHaveLength(0);
+
+        expect(blockchain.chain[1].transactions).toHaveLength(1);
+        expect(blockchain.chain[1].transactions).toMatchObject([{ amount: 500, sender: 'ALEXHT845SJ5TKCJ2',  recipient: 'JENN5BG5DF6HT8NG9'}]);
+
+        expect(blockchain.pendingTransactions).toHaveLength(0);
     })
 })

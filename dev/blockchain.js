@@ -9,13 +9,14 @@ Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash) {
     const newBlock = {
         index: this.chain.length + 1,
         timestamp: DateTime.now().setZone('utc').toJSDate(),
-        transactions: this.pendingTransactions,
+        transactions: [...this.pendingTransactions],
         nonce,
         hash,
         previousBlockHash,
     };
 
     this.chain.push(newBlock);
+    this.pendingTransactions = [];
 
     return newBlock;
 }
@@ -34,3 +35,4 @@ Blockchain.prototype.createNewTransaction = function(transaction) {
     this.pendingTransactions.push(newTransaction);
     return this.getLastBlock()['index'] + 1;
 }
+
