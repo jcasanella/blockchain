@@ -36,3 +36,6 @@ Blockchain.prototype.createNewTransaction = function(transaction) {
     return this.getLastBlock()['index'] + 1;
 }
 
+Blockchain.prototype.hashBlock = function(blockData) {
+
+}
